@@ -9,21 +9,21 @@
 import Foundation
 
 class Post {
-    var author: String
-    var title: String
-    var creationDate: Date
-    var thumbnail: URL
-    var numberOfComments: String
-    var status: Bool
-    var imageUrl: URL
+    var author: String?
+    var title: String?
+    var creationDate: Date?
+    var thumbnail: URL?
+    var numberOfComments: String?
+    var status: Bool?
+    var imageUrl: URL?
 
-    init(author: String, title: String, creationDate: Date, thumbnail: URL, numberOfComments: String, status: Bool, imageUrl: URL) {
-        self.author = author
+    init(author: String?, title: String?, creationDate: Double?, thumbnail: String?, numberOfComments: Int?, status: Bool?, imageUrl: String?) {
+        self.author = "u/\(author ?? "")"
         self.title = title
-        self.creationDate = creationDate
-        self.thumbnail = thumbnail
-        self.numberOfComments = numberOfComments
+        self.creationDate = Date(timeIntervalSince1970: creationDate ?? 0)
+        self.thumbnail = URL(string: thumbnail ?? "default")
+        self.numberOfComments = "\(numberOfComments ?? 0) comments"
         self.status = status
-        self.imageUrl = imageUrl
+        self.imageUrl = URL(string: imageUrl ?? "default")
     }
 }

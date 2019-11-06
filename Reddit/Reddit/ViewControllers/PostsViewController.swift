@@ -10,9 +10,9 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
+    var viewModel = PostsViewModel()
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
