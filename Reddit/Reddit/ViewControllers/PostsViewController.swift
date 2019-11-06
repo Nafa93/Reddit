@@ -14,6 +14,8 @@ class PostsViewController: UITableViewController {
     var detailViewController: PostDetailViewController? = nil
     var objects = [Any]()
 
+    @IBOutlet var postsTableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -23,11 +25,18 @@ class PostsViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? PostDetailViewController
         }
+
+        registerTableViewCell()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+    }
+
+    func registerTableViewCell() {
+        let postTableViewCell = UINib(nibName: "PostTableViewCell", bundle: nil)
+        postsTableView.register(postTableViewCell, forCellReuseIdentifier: "PostTableViewCell")
     }
 }
 
@@ -53,14 +62,15 @@ extension PostsViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell else {
+            print(Constant.ErrorMessage.cell)
+            return UITableViewCell()
+        }
 
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
         return cell
     }
 

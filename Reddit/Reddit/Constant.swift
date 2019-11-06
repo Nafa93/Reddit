@@ -14,6 +14,7 @@ class Constant {
         static let parsingPosts = "There was an error trying to parse the response data to dictionary"
         static let missingKey = "It's likely that we couldn't found some of the keys we're looking for"
         static let missingUrl = "The URL used to fetch the posts is nil"
+        static let cell = "There was an error casting the table cell into the custom class"
     }
 
     struct StatusCode {
