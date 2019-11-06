@@ -15,9 +15,9 @@ class PostDetailViewController: UIViewController {
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
+        if let post = post {
             if let label = detailDescriptionLabel {
-                label.text = detail.description
+                label.text = post.author
             }
         }
     }
@@ -28,7 +28,7 @@ class PostDetailViewController: UIViewController {
         configureView()
     }
 
-    var detailItem: NSDate? {
+    var post: Post? {
         didSet {
             // Update the view.
             configureView()

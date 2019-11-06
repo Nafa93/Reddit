@@ -45,9 +45,9 @@ extension PostsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
+                let post = viewModel.posts?[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! PostDetailViewController
-                controller.detailItem = object
+                controller.post = post
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -57,12 +57,8 @@ extension PostsViewController {
 
 // MARK: - Table View
 extension PostsViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return viewModel.posts?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,6 +66,8 @@ extension PostsViewController {
             print(Constant.ErrorMessage.cell)
             return UITableViewCell()
         }
+
+        cell.textLabel?.text = viewModel.posts?[indexPath.row].author
 
         return cell
     }

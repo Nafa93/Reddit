@@ -13,6 +13,9 @@ class PostsViewModel {
     //MARK: - Private properties
     private var baseUrl = URL(string: "https://www.reddit.com/top/.json?limit=50")
 
+    //MARK: - Public properties
+    var posts: [Post]?
+
     init() {
         guard let url = baseUrl else {
             print(Constant.ErrorMessage.missingUrl)
@@ -20,7 +23,7 @@ class PostsViewModel {
         }
 
         fetchPosts(url: url, completion: { posts in
-            print(posts)
+            self.posts = posts
         })
     }
 
