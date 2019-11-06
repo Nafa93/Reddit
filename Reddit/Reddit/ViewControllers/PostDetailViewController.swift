@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  PostDetailViewController.swift
 //  Reddit
 //
 //  Created by Nicolas Fernandez Amorosino on 05/11/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class PostDetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 

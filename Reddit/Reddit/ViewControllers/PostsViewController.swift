@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  PostsViewController.swift
 //  Reddit
 //
 //  Created by Nicolas Fernandez Amorosino on 05/11/2019.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class PostsViewController: UITableViewController {
 
     var viewModel = PostsViewModel()
-    var detailViewController: DetailViewController? = nil
+    var detailViewController: PostDetailViewController? = nil
     var objects = [Any]()
 
     override func viewDidLoad() {
@@ -19,11 +19,9 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
 
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? PostDetailViewController
         }
     }
 
@@ -31,30 +29,25 @@ class MasterViewController: UITableViewController {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
+}
 
-    @objc
-    func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-    }
-
-    // MARK: - Segues
-
+// MARK: - Segues
+extension PostsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let object = objects[indexPath.row] as! NSDate
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                let controller = (segue.destination as! UINavigationController).topViewController as! PostDetailViewController
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }
+}
 
-    // MARK: - Table View
-
+// MARK: - Table View
+extension PostsViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -80,11 +73,6 @@ class MasterViewController: UITableViewController {
         if editingStyle == .delete {
             objects.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
-
 }
-
