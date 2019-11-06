@@ -15,6 +15,7 @@ class PostsViewModel {
 
     init() {
         guard let url = baseUrl else {
+            print(Constant.ErrorMessage.missingUrl)
             return
         }
 
@@ -25,22 +26,22 @@ class PostsViewModel {
 
     private func fetchPosts(url: URL, completion: (([Post]) -> Void)?) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let data = data else {
-                print("There was an error trying to fetch the posts")
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == Constant.StatusCode.success, let data = data else {
+                print(Constant.ErrorMessage.fetchingPosts)
                 completion?([Post]())
                 return
             }
 
             do {
                 guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                    print("There was an error trying to parse the response data to dictionary")
+                    print(Constant.ErrorMessage.parsingPosts)
                     completion?([Post]())
                     return
                 }
 
                 completion?(self.decodePosts(from: json))
             } catch {
-                print("There was an error trying to parse the response data to dictionary")
+                print(Constant.ErrorMessage.parsingPosts)
             }
         }).resume()
     }
@@ -50,13 +51,13 @@ class PostsViewModel {
 
         guard let jsonData = posts["data"] as? [String: Any],
             let postsJson = jsonData["children"] as? [[String: Any]] else {
-                print("It's likely that we couldn't found some of the keys we're looking for")
+                print(Constant.ErrorMessage.missingKey)
                 return decodedPosts
         }
 
         postsJson.forEach { postJson in
             guard let postData = postJson["data"] as? [String: Any] else {
-                print("It's likely that we couldn't found some of the keys we're looking for")
+                print(Constant.ErrorMessage.missingKey)
                 return
             }
 
