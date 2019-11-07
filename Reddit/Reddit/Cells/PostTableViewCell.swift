@@ -25,12 +25,6 @@ class PostTableViewCell: UITableViewCell {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(performSegue)))
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
     @objc
     func performSegue() {
         delegate?.segueToPostDetail(post: post)

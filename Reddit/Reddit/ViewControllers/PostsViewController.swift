@@ -35,6 +35,7 @@ class PostsViewController: UITableViewController {
 
 }
 
+// MARK: - Segue preparation
 extension PostsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let post = sender as? Post
@@ -74,6 +75,7 @@ extension PostsViewController {
     }
 }
 
+// MARK: - PostViewModelDelegate functions
 extension PostsViewController: PostsViewModelDelegate {
     func postsFetched() {
         DispatchQueue.main.async { [weak self] in
@@ -82,6 +84,7 @@ extension PostsViewController: PostsViewModelDelegate {
     }
 }
 
+// MARK: - PostTableViewCellDelegate functions
 extension PostsViewController: PostTableViewCellDelegate {
     func segueToPostDetail(post: Post?) {
         performSegue(withIdentifier: "showDetail", sender: post)

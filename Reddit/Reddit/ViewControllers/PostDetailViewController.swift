@@ -12,7 +12,6 @@ class PostDetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
-
     func configureView() {
         // Update the user interface for the detail item.
         if let post = post {
@@ -24,7 +23,6 @@ class PostDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         configureView()
     }
 
@@ -34,7 +32,5 @@ class PostDetailViewController: UIViewController {
             configureView()
         }
     }
-
-
 }
 
