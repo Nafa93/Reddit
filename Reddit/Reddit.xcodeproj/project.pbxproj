@@ -17,7 +17,6 @@
 		8319CA25237249F300B04CA1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA24237249F300B04CA1 /* Post.swift */; };
 		8319CA272372560600B04CA1 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA262372560600B04CA1 /* Constant.swift */; };
 		8319CA2C23725BE900B04CA1 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA2A23725BE900B04CA1 /* PostTableViewCell.swift */; };
-		8319CA2D23725BE900B04CA1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8319CA2B23725BE900B04CA1 /* PostTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		8319CA24237249F300B04CA1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		8319CA262372560600B04CA1 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		8319CA2A23725BE900B04CA1 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
-		8319CA2B23725BE900B04CA1 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				8319CA2A23725BE900B04CA1 /* PostTableViewCell.swift */,
-				8319CA2B23725BE900B04CA1 /* PostTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -183,7 +180,6 @@
 				8319CA162372438800B04CA1 /* LaunchScreen.storyboard in Resources */,
 				8319CA132372438800B04CA1 /* Assets.xcassets in Resources */,
 				8319CA112372438700B04CA1 /* Main.storyboard in Resources */,
-				8319CA2D23725BE900B04CA1 /* PostTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

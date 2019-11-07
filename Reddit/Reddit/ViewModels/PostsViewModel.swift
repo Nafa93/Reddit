@@ -8,12 +8,17 @@
 
 import Foundation
 
+protocol PostsViewModelDelegate {
+    func postsFetched()
+}
+
 class PostsViewModel {
 
     //MARK: - Private properties
     private var baseUrl = URL(string: "https://www.reddit.com/top/.json?limit=50")
 
     //MARK: - Public properties
+    var delegate: PostsViewModelDelegate?
     var posts: [Post]?
 
     init() {
@@ -22,13 +27,14 @@ class PostsViewModel {
             return
         }
 
-        fetchPosts(url: url, completion: { posts in
-            self.posts = posts
+        fetchPosts(url: url, completion: { [weak self] posts in
+            self?.posts = posts
+            self?.delegate?.postsFetched()
         })
     }
 
-    private func fetchPosts(url: URL, completion: (([Post]) -> Void)?) {
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+    private func fetchPosts(url: URL, completion: (([Post]?) -> Void)?) {
+        URLSession.shared.dataTask(with: url, completionHandler: { [weak self] (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == Constant.StatusCode.success, let data = data else {
                 print(Constant.ErrorMessage.fetchingPosts)
                 completion?([Post]())
@@ -42,7 +48,7 @@ class PostsViewModel {
                     return
                 }
 
-                completion?(self.decodePosts(from: json))
+                completion?(self?.decodePosts(from: json))
             } catch {
                 print(Constant.ErrorMessage.parsingPosts)
             }

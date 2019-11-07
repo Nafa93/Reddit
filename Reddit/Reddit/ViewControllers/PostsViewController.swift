@@ -18,15 +18,14 @@ class PostsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        viewModel.delegate = self
         navigationItem.leftBarButtonItem = editButtonItem
 
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? PostDetailViewController
         }
-
-        registerTableViewCell()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,23 +33,16 @@ class PostsViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
 
-    func registerTableViewCell() {
-        let postTableViewCell = UINib(nibName: "PostTableViewCell", bundle: nil)
-        postsTableView.register(postTableViewCell, forCellReuseIdentifier: "PostTableViewCell")
-    }
 }
 
-// MARK: - Segues
 extension PostsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let post = sender as? Post
         if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let post = viewModel.posts?[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! PostDetailViewController
-                controller.post = post
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-            }
+            let controller = (segue.destination as! UINavigationController).topViewController as! PostDetailViewController
+            controller.post = post
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
         }
     }
 }
@@ -60,27 +52,38 @@ extension PostsViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.posts?.count ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell else {
             print(Constant.ErrorMessage.cell)
             return UITableViewCell()
         }
-
-        cell.textLabel?.text = viewModel.posts?[indexPath.row].author
+        
+        cell.delegate = self
+        cell.post = viewModel.posts?[indexPath.row]
+        cell.author.text = viewModel.posts?[indexPath.row].author
 
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            objects.remove(at: indexPath.row)
+            viewModel.posts?.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+}
+
+extension PostsViewController: PostsViewModelDelegate {
+    func postsFetched() {
+        DispatchQueue.main.async { [weak self] in
+            self?.postsTableView.reloadData()
+        }
+    }
+}
+
+extension PostsViewController: PostTableViewCellDelegate {
+    func segueToPostDetail(post: Post?) {
+        performSegue(withIdentifier: "showDetail", sender: post)
     }
 }
