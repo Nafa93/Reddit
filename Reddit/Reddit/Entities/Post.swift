@@ -14,10 +14,10 @@ class Post {
     var creationDate: Date?
     var thumbnail: URL?
     var numberOfComments: String?
-    var status: Bool?
+    var status: Bool
     var imageUrl: URL?
 
-    init(author: String?, title: String?, creationDate: Double?, thumbnail: String?, numberOfComments: Int?, status: Bool?, imageUrl: String?) {
+    init(author: String?, title: String?, creationDate: Double?, thumbnail: String?, numberOfComments: Int?, status: Bool, imageUrl: String?) {
         self.author = "u/\(author ?? "")"
         self.title = title
         self.creationDate = Date(timeIntervalSince1970: creationDate ?? 0)

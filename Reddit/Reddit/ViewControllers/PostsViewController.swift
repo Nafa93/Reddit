@@ -39,6 +39,7 @@ class PostsViewController: UITableViewController {
 extension PostsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let post = sender as? Post
+
         if segue.identifier == "showDetail" {
             let controller = (segue.destination as! UINavigationController).topViewController as! PostDetailViewController
             controller.post = post
