@@ -22,15 +22,7 @@ class PostsViewModel {
     var posts: [Post]?
 
     init() {
-        guard let url = baseUrl else {
-            print(Constant.ErrorMessage.missingUrl)
-            return
-        }
-
-        fetchPosts(url: url, completion: { [weak self] posts in
-            self?.posts = posts
-            self?.delegate?.postsFetched()
-        })
+        refreshPosts()
     }
 
     private func fetchPosts(url: URL, completion: (([Post]?) -> Void)?) {
@@ -86,5 +78,17 @@ class PostsViewModel {
         }
 
         return decodedPosts
+    }
+
+    func refreshPosts() {
+        guard let url = baseUrl else {
+            print(Constant.ErrorMessage.missingUrl)
+            return
+        }
+
+        fetchPosts(url: url, completion: { [weak self] posts in
+            self?.posts = posts
+            self?.delegate?.postsFetched()
+        })
     }
 }

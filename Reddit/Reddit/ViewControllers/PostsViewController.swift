@@ -22,6 +22,12 @@ class PostsViewController: UITableViewController {
         viewModel.delegate = self
         title = "Posts"
         navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dismiss All", style: .plain, target: self, action: #selector(dismissAllPosts))
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+
+        postsTableView.refreshControl = refreshControl
 
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -34,6 +40,26 @@ class PostsViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
 
+    @objc
+    func dismissAllPosts() {
+        guard let count = viewModel.posts?.count else { return }
+
+        var indexPaths = [IndexPath]()
+
+        for index in stride(from: count - 1, through: 0, by: -1) {
+            viewModel.posts?.remove(at: index)
+            indexPaths.append(IndexPath(row: index, section: 0))
+        }
+
+        tableView.beginUpdates()
+        tableView.deleteRows(at: indexPaths, with: .left)
+        tableView.endUpdates()
+    }
+
+    @objc
+    func refreshPosts() {
+        viewModel.refreshPosts()
+    }
 }
 
 // MARK: - Segue preparation
@@ -82,6 +108,7 @@ extension PostsViewController: PostsViewModelDelegate {
     func postsFetched() {
         DispatchQueue.main.async { [weak self] in
             self?.postsTableView.reloadData()
+            self?.refreshControl?.endRefreshing()
         }
     }
 }
