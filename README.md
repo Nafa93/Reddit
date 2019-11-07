@@ -10,7 +10,7 @@ You can navigate to a detailed view from the post if tap on the row, however, if
 
 Once you visited a post, if you navigate back, you'll notice that the blue dot at the top right will dissappear, that's the status indicator that shows you whether you read a post or not.
 
-You can navigate back and forth from the dashboard with posts to the detailed view.
+You can navigate back and forth from the dashboard with posts to the detailed view by pressing the back button or the cell, and you can show or dismiss the dashboard on iPads by swiping left or right.
 
 You can delete items from the the by pressing the edit button or you can delete everything by pressing the dismiss all button.
 
