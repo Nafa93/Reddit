@@ -15,9 +15,16 @@ protocol PostTableViewCellDelegate {
 class PostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var author: UILabel!
+    @IBOutlet weak var postTitle: UILabel!
+    @IBOutlet weak var numberOfComments: UILabel!
+    @IBOutlet weak var thumbnail: UIImageView!
 
     var delegate: PostTableViewCellDelegate?
-    var post: Post?
+    var post: Post? {
+        didSet {
+            configureView()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +35,14 @@ class PostTableViewCell: UITableViewCell {
     @objc
     func performSegue() {
         delegate?.segueToPostDetail(post: post)
+    }
+
+    func configureView() {
+        guard let post = post else { return }
+        author.text = "Posted by \(post.author ?? "") \(post.creationDate?.getElapsedInterval() ?? "")"
+        postTitle.text = post.title
+        numberOfComments.text = post.numberOfComments
+        thumbnail.imageFromServerURL(url: post.thumbnail)
     }
     
 }

@@ -62,7 +62,6 @@ extension PostsViewController {
         
         cell.delegate = self
         cell.post = viewModel.posts?[indexPath.row]
-        cell.author.text = viewModel.posts?[indexPath.row].author
 
         return cell
     }
@@ -70,7 +69,7 @@ extension PostsViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             viewModel.posts?.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.deleteRows(at: [indexPath], with: .left)
         }
     }
 }
