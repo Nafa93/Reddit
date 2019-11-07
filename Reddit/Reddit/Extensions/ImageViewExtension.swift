@@ -12,11 +12,17 @@ extension UIImageView {
 
     public func imageFromServerURL(url: URL?) {
 
-        guard let url = url else { return }
+        guard let url = url else {
+            image = UIImage(named: "imageNotFound")
+            return
+        }
 
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
+        URLSession.shared.dataTask(with: url, completionHandler: { [weak self] (data, response, error) -> Void in
 
             if error != nil {
+                DispatchQueue.main.async {
+                    self?.image = UIImage(named: "imageNotFound")
+                }
                 print(error?.localizedDescription as Any)
                 return
             }
