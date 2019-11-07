@@ -16,8 +16,11 @@ class Post {
     var numberOfComments: String?
     var status: Bool
     var imageUrl: URL?
+    var subreddit: String?
+    var ups: Int?
+    var downs: Int?
 
-    init(author: String?, title: String?, creationDate: Double?, thumbnail: String?, numberOfComments: Int?, status: Bool, imageUrl: String?) {
+    init(author: String?, title: String?, creationDate: Double?, thumbnail: String?, numberOfComments: Int?, status: Bool, imageUrl: String?, subreddit: String?, ups: Int?, downs: Int?) {
         self.author = "u/\(author ?? "")"
         self.title = title
         self.creationDate = Date(timeIntervalSince1970: creationDate ?? 0)
@@ -25,5 +28,8 @@ class Post {
         self.numberOfComments = "\(numberOfComments ?? 0) comments"
         self.status = status
         self.imageUrl = URL(string: imageUrl ?? "default")
+        self.subreddit = subreddit
+        self.ups = ups
+        self.downs = downs
     }
 }

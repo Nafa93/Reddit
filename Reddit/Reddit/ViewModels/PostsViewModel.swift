@@ -76,8 +76,11 @@ class PostsViewModel {
             let thumbnail = postData["thumbnail"] as? String
             let numberOfComments = postData["num_comments"] as? Int
             let imageUrl = postData["url"] as? String
+            let subreddit = postData["subreddit"] as? String
+            let ups = postData["ups"] as? Int
+            let downs = postData["downs"] as? Int
 
-            let post = Post(author: author, title: title, creationDate: creationDate, thumbnail: thumbnail, numberOfComments: numberOfComments, status: false, imageUrl: imageUrl)
+            let post = Post(author: author, title: title, creationDate: creationDate, thumbnail: thumbnail, numberOfComments: numberOfComments, status: false, imageUrl: imageUrl, subreddit: subreddit, ups: ups, downs: downs)
 
             decodedPosts.append(post)
         }
