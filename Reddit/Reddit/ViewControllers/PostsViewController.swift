@@ -20,11 +20,12 @@ class PostsViewController: UITableViewController {
         super.viewDidLoad()
 
         viewModel.delegate = self
+        title = "Posts"
         navigationItem.leftBarButtonItem = editButtonItem
 
         if let split = splitViewController {
             let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? PostDetailViewController
+            detailViewController = (controllers[controllers.count - 1] as! UINavigationController).topViewController as? PostDetailViewController
         }
     }
 
@@ -43,6 +44,7 @@ extension PostsViewController {
         if segue.identifier == "showDetail" {
             let controller = (segue.destination as! UINavigationController).topViewController as! PostDetailViewController
             controller.post = post
+            controller.title = post?.author
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
         }

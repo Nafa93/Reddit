@@ -31,7 +31,7 @@ class PostDetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let post = post {
-            author.text = "Posted by \(post.author ?? "") on \(post.subreddit ?? "") \(post.creationDate?.getElapsedInterval() ?? "")"
+            author.text = "Posted by \(post.author ?? "") on /r/\(post.subreddit ?? "") \(post.creationDate?.getElapsedInterval() ?? "")"
             postTitle.text = post.title
             thumbnail.imageFromServerURL(url: post.thumbnail)
             upVotes.text = "\(post.ups ?? 0)"
