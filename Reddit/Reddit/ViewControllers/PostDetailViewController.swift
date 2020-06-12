@@ -31,14 +31,14 @@ class PostDetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let post = post {
-            author.text = "Posted by \(post.author ?? "") on /r/\(post.subreddit ?? "") \(post.creationDate?.getElapsedInterval() ?? "")"
+            author.text = "Posted by \(post.author ?? "") on /r/\(post.subreddit ?? "") \(post.created ?? 0)"
             postTitle.text = post.title
-            thumbnail.imageFromServerURL(url: post.thumbnail)
-            upVotes.text = "\(post.ups ?? 0)"
-            downVotes.text = "\(post.downs ?? 0)"
+//            thumbnail.imageFromServerURL(url: post.thumbnail)
+            upVotes.text = "\(post.upvotes ?? 0)"
+            downVotes.text = "\(post.downvotes ?? 0)"
             downVotesImage.image = UIImage(named: "downArrow")
             upVotesImage.image = UIImage(named: "upArrow")
-            commentsAmount.text = post.numberOfComments
+            commentsAmount.text = "\(post.numberOfComments)"
         }
     }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class PostsViewController: UITableViewController {
 
-    var viewModel = PostsViewModel()
+    var viewModel = PostsViewModel(networkManager: NetworkManager())
     var detailViewController: PostDetailViewController? = nil
     var objects = [Any]()
 
