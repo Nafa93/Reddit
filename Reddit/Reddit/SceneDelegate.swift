@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
             
-            let postsViewController = PostsViewController(nibName: "PostsViewController", bundle: nil)
+            let postsViewController = PostsViewController(nibName: Constants.Nibs.postViewController, bundle: nil)
             
             let mainNavigationController = UINavigationController(rootViewController: postsViewController)
             

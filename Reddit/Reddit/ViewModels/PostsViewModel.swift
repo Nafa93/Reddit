@@ -26,7 +26,7 @@ class PostsViewModel {
     }
     
     /// Gets the last version of the post and stores it in an a posts array
-    func getPosts() {
+    @objc func getPosts() {
         networkManager.getTopPosts(amount: 50, completion: { [weak self] posts, error in
             if let error = error {
                 print(error)

@@ -25,17 +25,16 @@ class PostTableViewCell: UITableViewCell {
     func configureView() {
         guard let post = post else { return }
 
-        author.text = "Posted by \(post.author ?? "") \(post.created?.getElapsedInterval() ?? "")"
+        author.text = "Posted by \(post.author) \(post.created.getElapsedInterval())"
         postTitle.text = post.title
-        numberOfComments.text = "\(post.numberOfComments ?? 0)"
+        numberOfComments.text = "\(post.numberOfComments) Comments"
         thumbnail.imageFromServerURL(url: post.thumbnail)
-        status.backgroundColor = post.status ? .white : UIColor(displayP3Red: 24/255, green: 76/255, blue: 186/255, alpha: 1)
+        status.backgroundColor = post.status ? .white : .blueStatus
 
         thumbnail.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openImage)))
     }
 
-    @objc
-    func openImage() {
+    @objc func openImage() {
         if let url = post?.imageUrl {
             UIApplication.shared.open(url)
         }

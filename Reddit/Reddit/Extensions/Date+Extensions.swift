@@ -1,5 +1,5 @@
 //
-//  DateExtension.swift
+//  Date+Extensions.swift
 //  Reddit
 //
 //  Created by Nicolas Fernandez Amorosino on 06/11/2019.

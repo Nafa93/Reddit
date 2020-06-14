@@ -8,37 +8,45 @@
 
 import UIKit
 
-class PostsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PostsViewController: UIViewController {
 
+    typealias Strings = Constants.PostsViewController
+    typealias Nibs = Constants.Nibs
+    
     var viewModel = PostsViewModel(networkManager: NetworkManager())
-    var detailViewController: PostDetailViewController? = nil
 
     @IBOutlet var postsTableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = Strings.title
+
+        viewModel.delegate = self
+
+        setupNavigationBar()
+        setupRefreshControl()
+        setupTable()
+    }        
+    
+    private func setupNavigationBar() {
+        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.rightBarButton, style: .plain, target: self, action: #selector(dismissAllPosts))
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(viewModel.getPosts), for: .valueChanged)
+        postsTableView.refreshControl = refreshControl
+    }
+    
+    private func setupTable() {
         postsTableView.delegate = self
         postsTableView.dataSource = self
-        viewModel.delegate = self
-        title = "Posts"
-        navigationItem.leftBarButtonItem = editButtonItem
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dismiss All", style: .plain, target: self, action: #selector(dismissAllPosts))
-
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
-
-        postsTableView.refreshControl = refreshControl
-        
-        postsTableView.register(UINib(nibName: "PostTableViewCell", bundle: nil), forCellReuseIdentifier: "PostTableViewCell")
+        postsTableView.register(UINib(nibName: Nibs.postTableViewCell, bundle: nil), forCellReuseIdentifier: Nibs.postTableViewCell)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
-    @objc
-    func dismissAllPosts() {
+    @objc func dismissAllPosts() {
         guard let count = viewModel.posts?.count else { return }
 
         var indexPaths = [IndexPath]()
@@ -51,11 +59,6 @@ class PostsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         postsTableView.beginUpdates()
         postsTableView.deleteRows(at: indexPaths, with: .left)
         postsTableView.endUpdates()
-    }
-
-    @objc
-    func refreshPosts() {
-        viewModel.getPosts()
     }
     
     func navigateToPostDetailViewController(_ post: Post?) {
@@ -70,14 +73,13 @@ class PostsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 }
 
 // MARK: - Table View
-extension PostsViewController {
+extension PostsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.posts?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell else {
-            print(Constant.ErrorMessage.cell)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Nibs.postTableViewCell, for: indexPath) as? PostTableViewCell else {
             return UITableViewCell()
         }
 

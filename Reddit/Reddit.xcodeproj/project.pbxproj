@@ -26,13 +26,14 @@
 		196E47A024947F5D00F004BC /* PostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 196E479E24947F5D00F004BC /* PostDetailViewController.xib */; };
 		196E47A22494869500F004BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196E47A12494869500F004BC /* SceneDelegate.swift */; };
 		196E47A42495A1FA00F004BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 196E47A32495A1FA00F004BC /* Default-568h@2x.png */; };
+		196E47A62496D08F00F004BC /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196E47A52496D08F00F004BC /* UIColor+Extensions.swift */; };
 		8319CA0A2372438700B04CA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA092372438700B04CA1 /* AppDelegate.swift */; };
 		8319CA132372438800B04CA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8319CA122372438800B04CA1 /* Assets.xcassets */; };
 		8319CA232372486F00B04CA1 /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA222372486F00B04CA1 /* PostsViewModel.swift */; };
 		8319CA25237249F300B04CA1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA24237249F300B04CA1 /* Post.swift */; };
 		8319CA272372560600B04CA1 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA262372560600B04CA1 /* Constant.swift */; };
-		8319CA332373BB4700B04CA1 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA322373BB4700B04CA1 /* DateExtension.swift */; };
-		8319CA352373BFDB00B04CA1 /* ImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA342373BFDB00B04CA1 /* ImageViewExtension.swift */; };
+		8319CA332373BB4700B04CA1 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA322373BB4700B04CA1 /* Date+Extensions.swift */; };
+		8319CA352373BFDB00B04CA1 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA342373BFDB00B04CA1 /* UIImageView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		196E479E24947F5D00F004BC /* PostDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetailViewController.xib; sourceTree = "<group>"; };
 		196E47A12494869500F004BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		196E47A32495A1FA00F004BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		196E47A52496D08F00F004BC /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		8319CA062372438700B04CA1 /* Reddit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reddit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8319CA092372438700B04CA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8319CA122372438800B04CA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,8 +64,8 @@
 		8319CA222372486F00B04CA1 /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
 		8319CA24237249F300B04CA1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		8319CA262372560600B04CA1 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		8319CA322373BB4700B04CA1 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		8319CA342373BFDB00B04CA1 /* ImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewExtension.swift; sourceTree = "<group>"; };
+		8319CA322373BB4700B04CA1 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		8319CA342373BFDB00B04CA1 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,8 +203,9 @@
 		8319CA312373BAF200B04CA1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8319CA322373BB4700B04CA1 /* DateExtension.swift */,
-				8319CA342373BFDB00B04CA1 /* ImageViewExtension.swift */,
+				8319CA322373BB4700B04CA1 /* Date+Extensions.swift */,
+				8319CA342373BFDB00B04CA1 /* UIImageView+Extensions.swift */,
+				196E47A52496D08F00F004BC /* UIColor+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -282,14 +285,14 @@
 			files = (
 				196E47822492E50C00F004BC /* HTTPTask.swift in Sources */,
 				196E47862492E65500F004BC /* NetworkError.swift in Sources */,
-				8319CA332373BB4700B04CA1 /* DateExtension.swift in Sources */,
+				8319CA332373BB4700B04CA1 /* Date+Extensions.swift in Sources */,
 				196E47972494759800F004BC /* PostsViewController.swift in Sources */,
 				196E478E2492ECE300F004BC /* Router.swift in Sources */,
 				8319CA232372486F00B04CA1 /* PostsViewModel.swift in Sources */,
 				196E47802492E4C000F004BC /* HTTPMethod.swift in Sources */,
 				196E479B2494799A00F004BC /* PostTableViewCell.swift in Sources */,
 				196E47A22494869500F004BC /* SceneDelegate.swift in Sources */,
-				8319CA352373BFDB00B04CA1 /* ImageViewExtension.swift in Sources */,
+				8319CA352373BFDB00B04CA1 /* UIImageView+Extensions.swift in Sources */,
 				196E478A2492E85900F004BC /* JSONParameterEncoding.swift in Sources */,
 				196E47882492E6C900F004BC /* URLParameterEncoder.swift in Sources */,
 				196E47902492F55000F004BC /* RedditEndPoint.swift in Sources */,
@@ -299,6 +302,7 @@
 				8319CA25237249F300B04CA1 /* Post.swift in Sources */,
 				196E478C2492E92D00F004BC /* NetworkRouter.swift in Sources */,
 				196E479F24947F5D00F004BC /* PostDetailViewController.swift in Sources */,
+				196E47A62496D08F00F004BC /* UIColor+Extensions.swift in Sources */,
 				196E477E2492E44900F004BC /* EndPointType.swift in Sources */,
 				8319CA272372560600B04CA1 /* Constant.swift in Sources */,
 			);

@@ -9,16 +9,16 @@
 import Foundation
 
 struct Post {
-    let author: String?
-    let title: String?
-    let created: Date?
+    let author: String
+    let title: String
+    let created: Date
     let thumbnail: URL?
-    let numberOfComments: Int?
+    let numberOfComments: Int
     var status: Bool
     let imageUrl: URL?
-    let subreddit: String?
-    let upvotes: Int?
-    let downvotes: Int?
+    let subreddit: String
+    let upvotes: Int
+    let downvotes: Int
 }
 
 extension Post: Decodable {

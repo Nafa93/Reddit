@@ -18,7 +18,7 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var upVotesImage: UIImageView!
     @IBOutlet weak var downVotesImage: UIImageView!
     @IBOutlet weak var commentsAmount: UILabel!
-    
+
     var post: Post?
 
     override func viewDidLoad() {
@@ -31,14 +31,14 @@ class PostDetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let post = post {
-            author.text = "Posted by \(post.author ?? "") on /r/\(post.subreddit ?? "") \(post.created?.getElapsedInterval() ?? "")"
+            author.text = "Posted by \(post.author) on /r/\(post.subreddit) \(post.created.getElapsedInterval())"
             postTitle.text = post.title
             thumbnail.imageFromServerURL(url: post.thumbnail)
-            upVotes.text = "\(post.upvotes ?? 0)"
-            downVotes.text = "\(post.downvotes ?? 0)"
+            upVotes.text = "\(post.upvotes)"
+            downVotes.text = "\(post.downvotes)"
             downVotesImage.image = UIImage(named: "downArrow")
             upVotesImage.image = UIImage(named: "upArrow")
-            commentsAmount.text = "\(post.numberOfComments ?? 0)"
+            commentsAmount.text = "\(post.numberOfComments) Comments"
         }
     }
 

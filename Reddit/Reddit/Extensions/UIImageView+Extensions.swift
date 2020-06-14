@@ -1,5 +1,5 @@
 //
-//  ImageViewExtension.swift
+//  UIImageView+Extensions.swift
 //  Reddit
 //
 //  Created by Nicolas Fernandez Amorosino on 06/11/2019.
