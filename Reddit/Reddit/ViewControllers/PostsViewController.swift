@@ -8,11 +8,10 @@
 
 import UIKit
 
-class PostsViewController: UITableViewController {
+class PostsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var viewModel = PostsViewModel(networkManager: NetworkManager())
     var detailViewController: PostDetailViewController? = nil
-    var objects = [Any]()
 
     @IBOutlet var postsTableView: UITableView!
 
@@ -36,7 +35,6 @@ class PostsViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
 
@@ -51,9 +49,9 @@ class PostsViewController: UITableViewController {
             indexPaths.append(IndexPath(row: index, section: 0))
         }
 
-        tableView.beginUpdates()
-        tableView.deleteRows(at: indexPaths, with: .left)
-        tableView.endUpdates()
+        postsTableView.beginUpdates()
+        postsTableView.deleteRows(at: indexPaths, with: .left)
+        postsTableView.endUpdates()
     }
 
     @objc
@@ -79,11 +77,11 @@ extension PostsViewController {
 
 // MARK: - Table View
 extension PostsViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.posts?.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell else {
             print(Constant.ErrorMessage.cell)
             return UITableViewCell()
@@ -95,7 +93,7 @@ extension PostsViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             viewModel.posts?.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
@@ -108,7 +106,7 @@ extension PostsViewController: PostsViewModelDelegate {
     func postsFetched() {
         DispatchQueue.main.async { [weak self] in
             self?.postsTableView.reloadData()
-            self?.refreshControl?.endRefreshing()
+            self?.postsTableView.refreshControl?.endRefreshing()
         }
     }
 }

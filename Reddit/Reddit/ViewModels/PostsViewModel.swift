@@ -21,11 +21,11 @@ class PostsViewModel {
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
+        
         refreshPosts()
     }
 
     func refreshPosts() {
-
         networkManager.getTopPosts(amount: 50, completion: { [weak self] posts, error in
             if let error = error {
                 print(error)
@@ -34,6 +34,5 @@ class PostsViewModel {
             self?.posts = posts
             self?.delegate?.postsFetched()
         })
-
     }
 }
