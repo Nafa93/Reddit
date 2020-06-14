@@ -11,11 +11,11 @@ import Foundation
 struct Post {
     let author: String?
     let title: String?
-    let created: Int?
-    let thumbnail: String?
+    let created: Date?
+    let thumbnail: URL?
     let numberOfComments: Int?
     var status: Bool
-    let imageUrl: String?
+    let imageUrl: URL?
     let subreddit: String?
     let upvotes: Int?
     let downvotes: Int?
@@ -39,12 +39,19 @@ extension Post: Decodable {
         let container = try decoder.container(keyedBy: PostCodingKeys.self)
         
         status = false
+        
+        let thumbnailString = try container.decode(String.self, forKey: .thumbnail)
+        thumbnail = URL(string: thumbnailString)
+
+        let imageUrlString = try container.decode(String.self, forKey: .imageUrl)
+        imageUrl = URL(string: imageUrlString)
+        
+        let createdInt = try container.decode(Int.self, forKey: .created)
+        created = Date(timeIntervalSince1970: Double(createdInt))
+        
         author = try container.decode(String.self, forKey: .author)
         title = try container.decode(String.self, forKey: .title)
-        created = try container.decode(Int.self, forKey: .created)
-        thumbnail = try container.decode(String.self, forKey: .thumbnail)
         numberOfComments = try container.decode(Int.self, forKey: .numberOfComments)
-        imageUrl = try container.decode(String.self, forKey: .imageUrl)
         subreddit = try container.decode(String.self, forKey: .subreddit)
         upvotes = try container.decode(Int.self, forKey: .upvotes)
         downvotes = try container.decode(Int.self, forKey: .downvotes)

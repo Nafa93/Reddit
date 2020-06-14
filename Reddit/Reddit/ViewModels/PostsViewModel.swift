@@ -16,16 +16,17 @@ class PostsViewModel {
 
     //MARK: - Public properties
     var delegate: PostsViewModelDelegate?
-    var posts: [Post]?
     var networkManager: NetworkManager!
+    var posts: [Post]?
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
         
-        refreshPosts()
+        getPosts()
     }
-
-    func refreshPosts() {
+    
+    /// Gets the last version of the post and stores it in an a posts array
+    func getPosts() {
         networkManager.getTopPosts(amount: 50, completion: { [weak self] posts, error in
             if let error = error {
                 print(error)

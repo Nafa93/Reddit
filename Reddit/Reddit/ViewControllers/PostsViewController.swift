@@ -18,6 +18,8 @@ class PostsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        postsTableView.delegate = self
+        postsTableView.dataSource = self
         viewModel.delegate = self
         title = "Posts"
         navigationItem.leftBarButtonItem = editButtonItem
@@ -27,11 +29,8 @@ class PostsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
 
         postsTableView.refreshControl = refreshControl
-
-        if let split = splitViewController {
-            let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count - 1] as! UINavigationController).topViewController as? PostDetailViewController
-        }
+        
+        postsTableView.register(UINib(nibName: "PostTableViewCell", bundle: nil), forCellReuseIdentifier: "PostTableViewCell")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -56,22 +55,17 @@ class PostsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @objc
     func refreshPosts() {
-        viewModel.refreshPosts()
+        viewModel.getPosts()
     }
-}
-
-// MARK: - Segue preparation
-extension PostsViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let post = sender as? Post
-
-        if segue.identifier == "showDetail" {
-            let controller = (segue.destination as! UINavigationController).topViewController as! PostDetailViewController
-            controller.post = post
-            controller.title = post?.author
-            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-            controller.navigationItem.leftItemsSupplementBackButton = true
-        }
+    
+    func navigateToPostDetailViewController(_ post: Post?) {
+        guard let post = post else { return }
+        
+        let postDetailViewController = PostDetailViewController()
+        postDetailViewController.post = post
+        postDetailViewController.title = post.author
+        
+        navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }
 
@@ -86,8 +80,7 @@ extension PostsViewController {
             print(Constant.ErrorMessage.cell)
             return UITableViewCell()
         }
-        
-        cell.delegate = self
+
         cell.post = viewModel.posts?[indexPath.row]
 
         return cell
@@ -99,6 +92,12 @@ extension PostsViewController {
             tableView.deleteRows(at: [indexPath], with: .left)
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedPost = viewModel.posts?[indexPath.row]
+        
+        navigateToPostDetailViewController(selectedPost)
+    }
 }
 
 // MARK: - PostViewModelDelegate functions
@@ -108,12 +107,5 @@ extension PostsViewController: PostsViewModelDelegate {
             self?.postsTableView.reloadData()
             self?.postsTableView.refreshControl?.endRefreshing()
         }
-    }
-}
-
-// MARK: - PostTableViewCellDelegate functions
-extension PostsViewController: PostTableViewCellDelegate {
-    func segueToPostDetail(post: Post?) {
-        performSegue(withIdentifier: "showDetail", sender: post)
     }
 }
