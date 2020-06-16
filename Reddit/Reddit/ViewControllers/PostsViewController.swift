@@ -123,7 +123,7 @@ extension PostsViewController: PostsViewModelDelegate {
             self?.postsTableView.refreshControl?.endRefreshing()
             self?.postsTableView.isHidden = false
             
-            if errorMessage != nil {
+            if let errorMessage = errorMessage {
                 self?.postsTableView.refreshControl?.endRefreshing()
                 
                 let cancelAction = UIAlertAction(title: Strings.Alert.cancelButton, style: .cancel, handler: nil)
@@ -132,7 +132,7 @@ extension PostsViewController: PostsViewModelDelegate {
                     self?.viewModel.getPosts(isRefreshing: false)
                 }
                 
-                self?.showAlert(title: Strings.Alert.title, message: Strings.Alert.message, actions: [reloadAction, cancelAction])
+                self?.showAlert(title: Strings.Alert.title, message: errorMessage, actions: [reloadAction, cancelAction])
             }
         }
         

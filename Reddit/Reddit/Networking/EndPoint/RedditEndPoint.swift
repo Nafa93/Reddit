@@ -42,6 +42,4 @@ extension RedditAPI: EndPointType {
     var headers: HTTPHeaders? {
         return nil
     }
-    
-    
 }

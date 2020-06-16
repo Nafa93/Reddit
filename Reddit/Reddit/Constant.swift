@@ -15,7 +15,6 @@ struct Constants {
         
         struct Alert {
             static let title = "Something went wrong"
-            static let message = "Try reloading."
             static let cancelButton = "Cancel"
             static let reloadButton = "Reload"
         }
