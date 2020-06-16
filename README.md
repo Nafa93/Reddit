@@ -1,6 +1,6 @@
 # Reddit
 
-This is an example app that fetches posts from the Reddit public API. It uses MVVM. Not MVC, because I like this structure a little bit better and I plan to add some more functionality so MVC would have become outdated too fast, and not VIPER since it won't grow that much and it's too much boilerplate.
+This is a full navite swift, without any libraries, example app that fetches posts from the Reddit public API. It uses MVVM. Not MVC, because I like this structure a little bit better and I plan to add some more functionality so MVC would have become outdated too fast, and not VIPER since it won't grow that much and it's too much boilerplate.
 
 Things you can do:
 
