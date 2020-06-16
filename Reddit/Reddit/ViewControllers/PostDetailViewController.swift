@@ -13,8 +13,7 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var postTitle: UILabel!
     @IBOutlet weak var thumbnail: UIImageView!
-    @IBOutlet weak var upVotes: UILabel!
-    @IBOutlet weak var downVotes: UILabel!
+    @IBOutlet weak var totalVotes: UILabel!
     @IBOutlet weak var upVotesImage: UIImageView!
     @IBOutlet weak var downVotesImage: UIImageView!
     @IBOutlet weak var commentsAmount: UILabel!
@@ -33,14 +32,15 @@ class PostDetailViewController: UIViewController {
         if let post = post {
             author.text = "Posted by \(post.author) on /r/\(post.subreddit) \(post.created.getElapsedInterval())"
             postTitle.text = post.title
-            thumbnail.imageFromServerURL(url: post.thumbnail)
-            upVotes.text = "\(post.upvotes)"
-            downVotes.text = "\(post.downvotes)"
-            downVotesImage.image = UIImage(named: "downArrow")
-            upVotesImage.image = UIImage(named: "upArrow")
+            
+            let image = (post.imageUrl?.isAnImageLink() ?? false) ? post.imageUrl : post.thumbnail
+            thumbnail.imageFromServerURL(url: image)
+            
+            totalVotes.text = "\(post.upvotes - post.downvotes)"
+            downVotesImage.image = UIImage.downArrow
+            upVotesImage.image = UIImage.upArrow
             commentsAmount.text = "\(post.numberOfComments) Comments"
         }
     }
 
 }
-

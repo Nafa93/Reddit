@@ -9,7 +9,8 @@
 import Foundation
 
 protocol PostsViewModelDelegate {
-    func postsFetched()
+    func fecthingPosts()
+    func postsFetched(errorMessage: String?)
 }
 
 class PostsViewModel {
@@ -21,19 +22,17 @@ class PostsViewModel {
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
-        
-        getPosts()
     }
     
     /// Gets the last version of the post and stores it in an a posts array
-    @objc func getPosts() {
+    func getPosts(isRefreshing: Bool) {
+        if !isRefreshing {
+            self.delegate?.fecthingPosts()
+        }
+        
         networkManager.getTopPosts(amount: 50, completion: { [weak self] posts, error in
-            if let error = error {
-                print(error)
-            }
-            
             self?.posts = posts
-            self?.delegate?.postsFetched()
+            self?.delegate?.postsFetched(errorMessage: error?.rawValue)
         })
     }
 }

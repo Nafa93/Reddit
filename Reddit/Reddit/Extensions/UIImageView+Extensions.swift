@@ -13,7 +13,7 @@ extension UIImageView {
     public func imageFromServerURL(url: URL?) {
 
         guard let url = url else {
-            image = UIImage(named: "imageNotFound")
+            image = UIImage.imageNotFound
             return
         }
 
@@ -21,7 +21,7 @@ extension UIImageView {
 
             if error != nil {
                 DispatchQueue.main.async {
-                    self?.image = UIImage(named: "imageNotFound")
+                    self?.image = UIImage.imageNotFound
                 }
                 print(error?.localizedDescription as Any)
                 return

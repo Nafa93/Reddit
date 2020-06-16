@@ -29,9 +29,17 @@ class PostTableViewCell: UITableViewCell {
         postTitle.text = post.title
         numberOfComments.text = "\(post.numberOfComments) Comments"
         thumbnail.imageFromServerURL(url: post.thumbnail)
-        status.backgroundColor = post.status ? .white : .blueStatus
+        updatePostStatus()
 
         thumbnail.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openImage)))
+    }
+    
+    func updatePostStatus() {
+        guard let status = post?.status else { return }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.status.backgroundColor = status ? .white : .blueStatus
+        }
     }
 
     @objc func openImage() {

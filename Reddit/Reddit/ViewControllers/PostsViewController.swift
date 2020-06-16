@@ -16,6 +16,7 @@ class PostsViewController: UIViewController {
     var viewModel = PostsViewModel(networkManager: NetworkManager())
 
     @IBOutlet var postsTableView: UITableView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class PostsViewController: UIViewController {
         title = Strings.title
 
         viewModel.delegate = self
+        viewModel.getPosts(isRefreshing: false)
 
         setupNavigationBar()
         setupRefreshControl()
@@ -36,7 +38,7 @@ class PostsViewController: UIViewController {
     
     private func setupRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(viewModel.getPosts), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
         postsTableView.refreshControl = refreshControl
     }
     
@@ -46,6 +48,10 @@ class PostsViewController: UIViewController {
         postsTableView.register(UINib(nibName: Nibs.postTableViewCell, bundle: nil), forCellReuseIdentifier: Nibs.postTableViewCell)
     }
 
+    @objc func refreshPosts() {
+        viewModel.getPosts(isRefreshing: true)
+    }
+    
     @objc func dismissAllPosts() {
         guard let count = viewModel.posts?.count else { return }
 
@@ -96,18 +102,45 @@ extension PostsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedPost = viewModel.posts?[indexPath.row]
+        guard let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell else { return }
         
-        navigateToPostDetailViewController(selectedPost)
+        viewModel.posts?[indexPath.row].status = true
+        
+        cell.post?.status = true
+        
+        cell.updatePostStatus()
+        
+        navigateToPostDetailViewController(cell.post)
     }
 }
 
 // MARK: - PostViewModelDelegate functions
 extension PostsViewController: PostsViewModelDelegate {
-    func postsFetched() {
+    func postsFetched(errorMessage: String?) {
         DispatchQueue.main.async { [weak self] in
+            self?.spinner.stopAnimating()
             self?.postsTableView.reloadData()
             self?.postsTableView.refreshControl?.endRefreshing()
+            self?.postsTableView.isHidden = false
+            
+            if errorMessage != nil {
+                self?.postsTableView.refreshControl?.endRefreshing()
+                
+                let cancelAction = UIAlertAction(title: Strings.Alert.cancelButton, style: .cancel, handler: nil)
+                let reloadAction = UIAlertAction(title: Strings.Alert.reloadButton, style: .default) { [weak self] alert in
+                    self?.postsTableView.isHidden = true
+                    self?.viewModel.getPosts(isRefreshing: false)
+                }
+                
+                self?.showAlert(title: Strings.Alert.title, message: Strings.Alert.message, actions: [reloadAction, cancelAction])
+            }
+        }
+        
+    }
+    
+    func fecthingPosts() {
+        DispatchQueue.main.async { [weak self] in
+            self?.spinner.startAnimating()
         }
     }
 }

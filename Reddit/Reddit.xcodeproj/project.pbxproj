@@ -27,6 +27,9 @@
 		196E47A22494869500F004BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196E47A12494869500F004BC /* SceneDelegate.swift */; };
 		196E47A42495A1FA00F004BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 196E47A32495A1FA00F004BC /* Default-568h@2x.png */; };
 		196E47A62496D08F00F004BC /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196E47A52496D08F00F004BC /* UIColor+Extensions.swift */; };
+		198F6FDC24983F41005FE6E9 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198F6FDB24983F41005FE6E9 /* URL+Extensions.swift */; };
+		198F6FDE24984C04005FE6E9 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198F6FDD24984C04005FE6E9 /* UIViewController+Extensions.swift */; };
+		198F6FE024987783005FE6E9 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198F6FDF24987783005FE6E9 /* UIImage+Extensions.swift */; };
 		8319CA0A2372438700B04CA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA092372438700B04CA1 /* AppDelegate.swift */; };
 		8319CA132372438800B04CA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8319CA122372438800B04CA1 /* Assets.xcassets */; };
 		8319CA232372486F00B04CA1 /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319CA222372486F00B04CA1 /* PostsViewModel.swift */; };
@@ -57,6 +60,9 @@
 		196E47A12494869500F004BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		196E47A32495A1FA00F004BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		196E47A52496D08F00F004BC /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		198F6FDB24983F41005FE6E9 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		198F6FDD24984C04005FE6E9 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		198F6FDF24987783005FE6E9 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		8319CA062372438700B04CA1 /* Reddit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reddit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8319CA092372438700B04CA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8319CA122372438800B04CA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -206,6 +212,9 @@
 				8319CA322373BB4700B04CA1 /* Date+Extensions.swift */,
 				8319CA342373BFDB00B04CA1 /* UIImageView+Extensions.swift */,
 				196E47A52496D08F00F004BC /* UIColor+Extensions.swift */,
+				198F6FDB24983F41005FE6E9 /* URL+Extensions.swift */,
+				198F6FDD24984C04005FE6E9 /* UIViewController+Extensions.swift */,
+				198F6FDF24987783005FE6E9 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -285,9 +294,12 @@
 			files = (
 				196E47822492E50C00F004BC /* HTTPTask.swift in Sources */,
 				196E47862492E65500F004BC /* NetworkError.swift in Sources */,
+				198F6FE024987783005FE6E9 /* UIImage+Extensions.swift in Sources */,
 				8319CA332373BB4700B04CA1 /* Date+Extensions.swift in Sources */,
 				196E47972494759800F004BC /* PostsViewController.swift in Sources */,
+				198F6FDE24984C04005FE6E9 /* UIViewController+Extensions.swift in Sources */,
 				196E478E2492ECE300F004BC /* Router.swift in Sources */,
+				198F6FDC24983F41005FE6E9 /* URL+Extensions.swift in Sources */,
 				8319CA232372486F00B04CA1 /* PostsViewModel.swift in Sources */,
 				196E47802492E4C000F004BC /* HTTPMethod.swift in Sources */,
 				196E479B2494799A00F004BC /* PostTableViewCell.swift in Sources */,

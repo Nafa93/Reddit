@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         if #available(iOS 13.0, *) {} else {
             let window = UIWindow(frame: UIScreen.main.bounds)
             
-            let postsViewController = UINavigationController(rootViewController: PostsViewController(nibName: "PostsViewController", bundle: nil))
+            let postsViewController = UINavigationController(rootViewController: PostsViewController(nibName: Constants.Nibs.postViewController, bundle: nil))
             
             window.rootViewController = postsViewController
             window.makeKeyAndVisible()

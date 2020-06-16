@@ -12,10 +12,17 @@ struct Constants {
     struct PostsViewController {
         static let title = "Posts"
         static let rightBarButton = "Dismiss All"
+        
+        struct Alert {
+            static let title = "Something went wrong"
+            static let message = "Try reloading."
+            static let cancelButton = "Cancel"
+            static let reloadButton = "Reload"
+        }
     }
     
     struct Nibs {
-        static let postViewController = "PostViewController"
+        static let postViewController = "PostsViewController"
         static let postTableViewCell = "PostTableViewCell"
     }
 }
